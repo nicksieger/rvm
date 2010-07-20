@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+if [[ -f /etc/rvmrc ]] ; then source /etc/rvmrc ; fi
+if [[ -f "$HOME/.rvmrc" ]] ; then source "$HOME/.rvmrc" ; fi
+rvm_path="${rvm_path:-$HOME/.rvm}"
+mkdir -p $rvm_path/src/
+cd $rvm_path/src
+
+rm -rf ./rvm/ && git clone --depth 1 git://github.com/wayneeseguin/rvm.git
+cd rvm
+# v v v This is a godo idea however it does not preserve the executible bit.
+# Needs more thought, perhaps a simple sed instead.
+# dos2unix scripts/* >/dev/null 2>&1
+bash scripts/install
